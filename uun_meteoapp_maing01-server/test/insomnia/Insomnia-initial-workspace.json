@@ -11,7 +11,7 @@
     },
     "body": {
       "mimeType": "application/json",
-      "text": "{\n\t\"name\": \"uunMeteoappMaing01\",\n\t\"description\": \"...\",\n\t\"uuAppProfileAsidAuthorities\": \"urn:uu:GGPLUS4U\",\n\t\"sysState\": \"active\",\n\t\"adviceNote\": {\n\t\t\"message\": \"Migration ...\",\n\t\t\"severity\": \"info\",\n\t\t\"estimatedEndTime\": \"2020-04-21T10:15:30.000Z\"\n\t}\n}"
+      "text": "{\n\t\"name\": \"uunMeteoAppMaing01\",\n\t\"description\": \"...\",\n\t\"uuAppProfileAsidAuthorities\": \"urn:uu:GGPLUS4U\",\n\t\"sysState\": \"active\",\n\t\"adviceNote\": {\n\t\t\"message\": \"Migration ...\",\n\t\t\"severity\": \"info\",\n\t\t\"estimatedEndTime\": \"2020-04-21T10:15:30.000Z\"\n\t}\n}"
     },
     "created": 1586511533962,
     "description": "uuCmd documentation\n\nhttps://uuapp.plus4u.net/uu-bookkit-maing01/d11a43aa3a214083b84a4e4103a4f635/book/page?code=38581871",
@@ -51,7 +51,7 @@
     "created": 1549535555731,
     "description": "",
     "modified": 1549535555731,
-    "name": "uunMeteoappMaing01",
+    "name": "uunMeteoAppMaing01",
     "parentId": null,
     "scope": null,
     "_type": "workspace"
@@ -88,7 +88,7 @@
     },
     "body": {
       "mimeType": "application/json",
-      "text": "{\n\t\"name\": \"uunMeteoappMaing01\",\n\t\"description\": \"Updated description of an application.\",\n\t\"adviceNote\": {\n\t\t\"message\": \"Migration to version 2.0\",\n\t\t\"severity\": \"info\",\n\t\t\"estimatedEndTime\": \"2018-06-21T10:15:30.000Z\"\n\t}\n}"
+      "text": "{\n\t\"name\": \"uunMeteoAppMaing01\",\n\t\"description\": \"Updated description of an application.\",\n\t\"adviceNote\": {\n\t\t\"message\": \"Migration to version 2.0\",\n\t\t\"severity\": \"info\",\n\t\t\"estimatedEndTime\": \"2018-06-21T10:15:30.000Z\"\n\t}\n}"
     },
     "created": 1586511533968,
     "description": "uuCmd description\n\nhttps://uuapp.plus4u.net/uu-bookkit-maing01/d11a43aa3a214083b84a4e4103a4f635/book/page?code=04769399\n",
@@ -2650,7 +2650,7 @@
       "asid": "11111111111111111111111111111111",
       "awid": "22222222222222222222222222222222",
       "awidLicenseOwner": "",
-      "host": "http://localhost:8080"
+      "host": "http://localhost:5420"
     },
     "dataPropertyOrder": {
       "&": ["asid", "awid", "awidLicenseOwner", "host"]
