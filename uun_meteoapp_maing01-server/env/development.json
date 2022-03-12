@@ -1,9 +1,9 @@
 {
-  "port": 8080,
+  "port": 5420,
   "uuSubAppDataStoreMap": {
     "primary": "mongodb://127.0.0.1:27017/meteoappMainPrimary"
   },
-  "asid_license_owner_list": [],
+  "asid_license_owner_list": ["7888-8591-1", "3965-9375-1", "1599-1654-1", "6425-8941-1", "12-8030-1"],
   "asid": "11111111111111111111111111111111",
   "log_level": "INFO"
 }
