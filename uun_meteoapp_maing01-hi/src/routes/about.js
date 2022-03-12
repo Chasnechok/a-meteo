@@ -153,20 +153,11 @@ let About = createVisualComponent({
         <RouteBar />
         <div className={Css.content()}>
           <DynamicLibraryComponent uu5Tag="Plus4U5.App.About" header={header} content={about} />
-          {sessionState === "authenticated" ? (
-            <DynamicLibraryComponent
-              uu5Tag="Plus4U5.App.Support"
-              uuFlsUri={uuAppUuFlsBaseUri}
-              uuSlsUri={uuAppUuSlsBaseUri}
-              productCode="support/uunMeteoapp"
-              productPortalUri={uuAppProductPortalUri}
-            />
-          ) : null}
           {products.length > 0 ? (
             <DynamicLibraryComponent uu5Tag="UuProductCatalogue.Bricks.ProductList" type="16x9" products={products} />
           ) : null}
           <div className={Css.common()}>
-            <div>{`uunMeteoapp ${Environment.appVersion}`}</div>
+            <div>{`uunMeteoApp ${Environment.appVersion}`}</div>
             {licence.termsOfUse && (
               <div>
                 <Uu5Elements.Link href={licence.termsOfUse} target="_blank">

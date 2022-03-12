@@ -1,7 +1,7 @@
 const Lsi = {
   appName: {
-    cs: "Aplikace uuTestapp",
-    en: "Application uuTestapp",
+    cs: "Aplikace uuMeteoApp",
+    en: "Application uuMeteoApp",
   },
 
   menu: {
@@ -17,8 +17,8 @@ const Lsi = {
 
   about: {
     header: {
-      cs: "O aplikaci uuTestapp",
-      en: "About application uuTestapp",
+      cs: "O aplikaci uuMeteoApp",
+      en: "About application uuMeteoApp",
     },
     creatorsHeader: {
       cs: "Tvůrci aplikace",

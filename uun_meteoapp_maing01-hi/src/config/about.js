@@ -2,11 +2,11 @@ import Uu5Elements from "uu5g05-elements";
 
 const About = {
   about: {
-    cs: "Demo aplikace je šablona pro vývoj nových aplikací.",
-    en: "Demo application is a template for developing new applications.",
+    cs: "Aplikace uunMeteoApp, umožňuje spravovat čidla pro měření teploty a vlhkosti na konkrétních místech. A také zobrazovat naměřené hodnoty v čase v přehledných grafech.",
+    en: "The uunMeteoApp application that allows you to manage temperature and humidity sensors in specific locations. And also display the measured values over time in clear graphs.",
   },
   licence: {
-    termsOfUse: "https://unicorn.com/tou/your_product",
+    termsOfUse: "https://unicornuniversity.net/",
     organisation: {
       cs: {
         name: "Unicorn a.s.",
@@ -20,48 +20,38 @@ const About = {
     authorities: {
       cs: [
         {
-          name: "Name Surname",
-          uri: "https://www.unicorn.com/",
+          name: "Jakub Šírek",
+          uri: "https://uuapp.plus4u.net/uu-plus4upeople-maing01/56ac93ddb0034de8b8e4f4b829ff7d0f/personDetail?uuIdentity=7888-8591-1",
         },
       ],
       en: [
         {
-          name: "Name Surname",
-          uri: "https://www.unicorn.com/",
+          name: "Jakub Šírek",
+          uri: "https://uuapp.plus4u.net/uu-plus4upeople-maing01/56ac93ddb0034de8b8e4f4b829ff7d0f/personDetail?uuIdentity=7888-8591-1",
         },
       ],
     },
   },
   leadingAuthors: [
     {
-      name: "Some Name",
-      uuIdentity: "4-4-1",
-      role: {
-        en: "Chief Business Architect & Stakeholder",
-      },
+      name: "Lukáš Mužík",
+      uuIdentity: "3965-9375-1",
     },
     {
-      name: "Other Name",
-      uuIdentity: "4-4-1",
-      role: {
-        en: "Head of Development",
-      },
-    },
-  ],
-  otherAuthors: [
-    {
-      name: "Your Name",
-      uuIdentity: "4-4-1",
-      role: {
-        en: "Developer",
-      },
+      name: "Jakub Šírek",
+      uuIdentity: "7888-8591-1",
     },
     {
-      name: "More Names",
-      uuIdentity: "4-4-1",
-      role: {
-        en: "Developer",
-      },
+      name: "Dominik Vaňkát",
+      uuIdentity: "6425-8941-1",
+    },
+    {
+      name: "Bohumír Zaviš",
+      uuIdentity: "12-8030-1",
+    },
+    {
+      name: "Andrea Hartmanová",
+      uuIdentity: "1599-1654-1",
     },
   ],
   usedTechnologies: {
