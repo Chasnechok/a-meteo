@@ -6,6 +6,9 @@
       "schemaMap": {
         "meteoappMain": {
           "realization": "dao/MeteoappMainMongo"
+        },
+        "sensor": {
+          "realization": "dao/SensorMongo"
         }
       }
     }

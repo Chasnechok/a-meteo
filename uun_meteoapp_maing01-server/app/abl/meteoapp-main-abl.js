@@ -112,6 +112,7 @@ class MeteoappMainAbl {
       uuAppErrorMap: uuAppErrorMap,
     };
   }
+
 }
 
 module.exports = new MeteoappMainAbl();
