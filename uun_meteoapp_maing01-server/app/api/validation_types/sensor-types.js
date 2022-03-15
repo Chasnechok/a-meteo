@@ -15,9 +15,9 @@ const sensorUpdateDtoInType = shape({
   name: string(200).isRequired()
 })
 const sensorListDtoInType = shape({
-  sortBy: oneOf(["name", "uuIdentity"]),
+  sortBy: oneOf(["name"]),
   order: oneOf(["asc", "desc"]),
-  state: oneOf(["active", "archived"]),
+  state: oneOf(["active", "deleted", "unrecognized"]),
   pageInfo: shape({
     pageIndex: integer(),
     pageSize: integer(),

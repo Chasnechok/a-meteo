@@ -8,11 +8,24 @@ const Errors = require("../api/errors/sensor-error.js");
 const WARNINGS = {
   createUnsupportedKeys: {
     code: `${Errors.Create.UC_CODE}unsupportedKeys`
-  }
+  },
+  getUnsupportedKeys: {
+    code: `${Errors.Get.UC_CODE}unsupportedKeys`
+  },
+  updateUnsupportedKeys: {
+    code: `${Errors.Update.UC_CODE}unsupportedKeys`
+  },
+  listUnsupportedKeys: {
+    code: `${Errors.List.UC_CODE}unsupportedKeys`
+  },
+  deleteUnsupportedKeys: {
+    code: `${Errors.Delete.UC_CODE}unsupportedKeys`
+  },
+  
 };
 
 const DEFAULTS = {
-  sortBy: "uuIdentity",
+  sortBy: "name",
   order: "asc",
   state: "active",
   pageIndex: 0,
@@ -40,8 +53,8 @@ class SensorAbl {
     let uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.createUnsupportedKeys.code,
-      Errors.Create.InvalidDtoIn
+      WARNINGS.deleteUnsupportedKeys.code,
+      Errors.Delete.InvalidDtoIn
     );
     // HDS 2.4.
     dtoIn.awid = awid;
@@ -55,7 +68,7 @@ class SensorAbl {
     } catch (e) {
       // AS  3.1.
       if (e instanceof ObjectStoreError) {
-        throw new Errors.Create.SensorDaoCreateFailed({ uuAppErrorMap });
+        throw new Errors.Delete.SensorDaoDeleteFailed({ uuAppErrorMap });
       }
       throw e;
     }
@@ -74,8 +87,8 @@ class SensorAbl {
     let uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.createUnsupportedKeys.code,
-      Errors.Create.InvalidDtoIn
+      WARNINGS.listUnsupportedKeys.code,
+      Errors.List.InvalidDtoIn
     );
     // HDS 2.4
     if (!dtoIn.sortBy) dtoIn.sortBy = DEFAULTS.sortBy;
@@ -93,7 +106,7 @@ class SensorAbl {
     } catch (e) {
       // AS  3.1.
       if (e instanceof ObjectStoreError) {
-        throw new Errors.Create.SensorDaoCreateFailed({ uuAppErrorMap });
+        throw new Errors.List.SensorDaoListFailed({ uuAppErrorMap });
       }
       throw e;
     }
@@ -107,8 +120,8 @@ class SensorAbl {
     // HDS 1., HDS 1.1
     /* await SubjectManAbl.checkInstance(
        awid,
-       Errors.Create.SubjectManInstanceDoesNotExist,
-       Errors.Create.SubjectManInstanceNotInProperState
+       Errors.Update.SubjectManInstanceDoesNotExist,
+       Errors.Update.SubjectManInstanceNotInProperState
      );*/
 
     // HDS 2., HDS 2.1.
@@ -117,8 +130,8 @@ class SensorAbl {
     let uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.createUnsupportedKeys.code,
-      Errors.Create.InvalidDtoIn
+      WARNINGS.updateUnsupportedKeys.code,
+      Errors.Update.InvalidDtoIn
     );
     // HDS 2.4.
     dtoIn.awid = awid;
@@ -134,7 +147,7 @@ class SensorAbl {
     } catch (e) {
       // AS  3.1.
       if (e instanceof ObjectStoreError) {
-        throw new Errors.Create.SensorDaoCreateFailed({ uuAppErrorMap });
+        throw new Errors.Update.SensorDaoUpdateFailed({ uuAppErrorMap });
       }
       throw e;
     }
@@ -158,8 +171,8 @@ class SensorAbl {
     let uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.createUnsupportedKeys.code,
-      Errors.Create.InvalidDtoIn
+      WARNINGS.getUnsupportedKeys.code,
+      Errors.Get.InvalidDtoIn
     );
     // HDS 2.4.
     dtoIn.awid = awid;
@@ -173,7 +186,7 @@ class SensorAbl {
     } catch (e) {
       // AS  3.1.
       if (e instanceof ObjectStoreError) {
-        throw new Errors.Create.SensorDaoCreateFailed({ uuAppErrorMap });
+        throw new Errors.Get.SensorDaoGetFailed({ uuAppErrorMap });
       }
       throw e;
     }
