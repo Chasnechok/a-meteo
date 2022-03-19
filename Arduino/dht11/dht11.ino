@@ -2,6 +2,7 @@
 
 // připojení knihovny DHT
 #include "DHT.h"
+#include <ArduinoJson.h>
 // nastavení čísla pinu s připojeným DHT senzorem
 #define pinDHT 8
 
@@ -47,12 +48,17 @@ void loop() {
     } else {
       // pokud jsou hodnoty v pořádku,
       // vypiš je po sériové lince
-      Serial.print("Teplota: ");
+      /*Serial.print("Teplota: ");
       Serial.print(teplota);
       Serial.print("°C ");
       Serial.print("vlhkost: ");
       Serial.print(vlhkost);
-      Serial.println("  %");
+      Serial.println("  %");*/
+      StaticJsonDocument<100> outputJson;
+      outputJson["temperature"] = teplota;
+      outputJson["humidity"] = vlhkost;
+      serializeJson(outputJson, Serial);
+      Serial.println();
     }
   }
 }
