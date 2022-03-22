@@ -9,6 +9,9 @@
         },
         "sensor": {
           "realization": "dao/SensorMongo"
+        },
+        "log": {
+          "realization": "dao/LogMongo"
         }
       }
     }

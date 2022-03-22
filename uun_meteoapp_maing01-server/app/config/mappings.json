@@ -40,6 +40,11 @@
         "realization": "api/controllers/SensorController.delete",
         "httpMethod": "POST",
         "type": "CMD"
+      },
+      "log/create": {
+        "realization": "api/controllers/LogController.create",
+        "httpMethod": "POST",
+        "type": "CMD"
       }
     }
   }

@@ -1,6 +1,9 @@
 /* eslint-disable */
 const sensorCreateDtoInType = shape({
-  name: string(200).isRequired()
+  name: string(200).isRequired(),
+  code: string(200).isRequired(),
+  locationCode: string(200).isRequired()
+  
 })
 
 const sensorGetDtoInType = shape({
@@ -17,7 +20,7 @@ const sensorUpdateDtoInType = shape({
 const sensorListDtoInType = shape({
   sortBy: oneOf(["name"]),
   order: oneOf(["asc", "desc"]),
-  state: oneOf(["active", "deleted", "unrecognized"]),
+  state: oneOf(["initial", "active", "passive", "forbidden"]),
   pageInfo: shape({
     pageIndex: integer(),
     pageSize: integer(),
