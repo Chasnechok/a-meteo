@@ -8,6 +8,7 @@ class SensorMongo extends UuObjectDao {
   async create(uuObject) {
     return await super.insertOne(uuObject);
   }
+  
   async list(awid, sortBy, order, state, pageInfo) {
     const filter = { awid, state };
 
@@ -41,6 +42,13 @@ class SensorMongo extends UuObjectDao {
     let filter = {
       awid: awid,
       id: id,
+    };
+    return await super.findOne(filter);
+  }
+  async getByCode(awid, code) {
+    let filter = {
+      awid: awid,
+      code: code,
     };
     return await super.findOne(filter);
   }

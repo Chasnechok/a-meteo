@@ -215,7 +215,7 @@ class SensorAbl {
       Errors.Create.InvalidDtoIn
     );
     // HDS 2.4.
-    dtoIn.state = "active";
+    dtoIn.state = "initial";
     dtoIn.awid = awid;
     // HDS 3.
     let sensor;
