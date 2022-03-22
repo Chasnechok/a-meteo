@@ -47,7 +47,7 @@ class LogAbl {
     } catch (e) {
       // AS  3.1.
       if (e instanceof ObjectStoreError) {
-        throw new Errors.Get.SensorDaoGetFailed({ uuAppErrorMap });
+        throw new Errors.Create.LogDaoCreateFailed({ uuAppErrorMap });
       }
       throw e;
     }
@@ -67,7 +67,7 @@ class LogAbl {
     } catch (e) {
       // AS  3.1.
       if (e instanceof ObjectStoreError) {
-        throw new Errors.Get.SensorDaoGetFailed({ uuAppErrorMap });
+        throw new Errors.Create.LogDaoCreateFailed({ uuAppErrorMap });
       }
       throw e;
     }
@@ -89,7 +89,7 @@ class LogAbl {
     } catch (e) {
       // AS  3.1.
       if (e instanceof ObjectStoreError) {
-        throw new Errors.Create.SensorDaoCreateFailed({ uuAppErrorMap }, e);
+        throw new Errors.Create.LogDaoCreateFailed({ uuAppErrorMap }, e);
       }
       throw e;
     }

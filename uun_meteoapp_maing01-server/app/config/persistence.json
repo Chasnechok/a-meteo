@@ -12,6 +12,9 @@
         },
         "log": {
           "realization": "dao/LogMongo"
+        },
+        "location": {
+          "realization": "dao/LocationMongo"
         }
       }
     }

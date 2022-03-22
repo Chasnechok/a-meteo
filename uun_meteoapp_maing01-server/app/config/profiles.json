@@ -40,6 +40,14 @@
       "log/create": {
         "sysStateList": ["active"],
         "profileList": ["Public"]
+      },
+      "location/create": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "location/get": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
       }
     }
   }
