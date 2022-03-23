@@ -6,7 +6,9 @@ const { ValidationHelper } = require("uu_appg01_server").AppServer;
 const Errors = require("../api/errors/log-error.js");
 
 const WARNINGS = {
-
+  createUnsupportedKeys: {
+    code: `${Errors.Create.UC_CODE}unsupportedKeys`
+  },
 };
 
 class LogAbl {
@@ -20,10 +22,23 @@ class LogAbl {
 
   async create(awid, dtoIn) {
     
+
+
+    let validationResult = this.validator.validate("logCreateDtoInType", dtoIn);
+    // HDS 2.2., AS  2.2.1., HDS 2.3., AS  2.3.1.
+    let uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      WARNINGS.createUnsupportedKeys.code,
+      Errors.Create.InvalidDtoIn
+    );
+
+
     dtoIn.awid = awid;
     
     let newSensor;
     let sensor;
+
     //get sensor by code
     try {
       sensor = await this.sensordao.getByCode(dtoIn.awid,dtoIn.code);
@@ -32,7 +47,7 @@ class LogAbl {
     } catch (e) {
       // AS  3.1.
       if (e instanceof ObjectStoreError) {
-        throw new Errors.Get.SensorDaoGetFailed({ uuAppErrorMap });
+        throw new Errors.Create.LogDaoCreateFailed({ uuAppErrorMap });
       }
       throw e;
     }
@@ -52,7 +67,7 @@ class LogAbl {
     } catch (e) {
       // AS  3.1.
       if (e instanceof ObjectStoreError) {
-        throw new Errors.Get.SensorDaoGetFailed({ uuAppErrorMap });
+        throw new Errors.Create.LogDaoCreateFailed({ uuAppErrorMap });
       }
       throw e;
     }
@@ -74,7 +89,7 @@ class LogAbl {
     } catch (e) {
       // AS  3.1.
       if (e instanceof ObjectStoreError) {
-        throw new Errors.Create.SensorDaoCreateFailed({ uuAppErrorMap }, e);
+        throw new Errors.Create.LogDaoCreateFailed({ uuAppErrorMap }, e);
       }
       throw e;
     }
