@@ -22,8 +22,8 @@ void loop(){
     // save the last time you blinked the LED
     previousMillis = currentMillis;
 
-    
-  
+
+
     // pomocí funkcí readTemperature a readHumidity načteme
     // do proměnných teplota a vlhkost informace o teplotě a vlhkosti,
     // čtení trvá cca 250 ms
@@ -37,21 +37,19 @@ void loop(){
     } else {
       // pokud jsou hodnoty v pořádku,
       // vypiš je po sériové lince
-    
+
   StaticJsonDocument<100> testDocument;
 
-  long int timeinms = millis();
-  testDocument["msstart"] = timeinms;
   testDocument["temperature"] = teplota;
   testDocument["humidity"] = vlhkost;
-  
+
   char buffer[100];
-  
+
   serializeJsonPretty(testDocument, buffer);
-  
+
   Serial.println(buffer);
-  
-  
+
+
   }
 }
 }
