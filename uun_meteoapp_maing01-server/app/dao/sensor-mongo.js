@@ -26,8 +26,6 @@ class SensorMongo extends UuObjectDao {
     return await super.deleteOne(filter);
   }
   async update(uuObject) {
-
-
     let filter = {
       awid: uuObject.awid,
       id: uuObject.id,
