@@ -9,6 +9,9 @@ const WARNINGS = {
   createUnsupportedKeys: {
     code: `${Errors.Create.UC_CODE}unsupportedKeys`
   },
+  getUnsupportedKeys: {
+    code: `${Errors.Get.UC_CODE}unsupportedKeys`
+  },
 };
 
 class LogAbl {
@@ -19,6 +22,44 @@ class LogAbl {
     this.sensordao = DaoFactory.getDao("sensor");
 
   }
+
+  async get(awid, dtoIn) {
+    let validationResult = this.validator.validate("logGetDtoInType", dtoIn);
+    // HDS 2.2., AS  2.2.1., HDS 2.3., AS  2.3.1.
+    let uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      WARNINGS.getUnsupportedKeys.code,
+      Errors.Get.InvalidDtoIn
+    );
+    
+    // HDS 2.4.
+    dtoIn.awid = awid;
+    // HDS 3.
+    let logs;
+    
+
+    try {
+      logs = await this.dao.getAllByCode(dtoIn.awid,dtoIn.code);
+
+    } catch (e) {
+      // AS  3.1.
+      if (e instanceof ObjectStoreError) {
+        throw new Errors.Get.LogDaoGetFailed({ uuAppErrorMap });
+      }
+      throw e;
+    }
+    //logCode does not exist
+    if (logs === {}) {
+      throw new Errors.Get.LogDoesNotExist({ uuAppErrorMap });
+    }
+    //returns log + errormap
+    return {
+      logs,
+      uuAppErrorMap
+    }
+  }
+  
 
   async create(awid, dtoIn) {
     

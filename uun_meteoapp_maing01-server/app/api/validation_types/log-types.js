@@ -4,7 +4,8 @@ const logCreateDtoInType = shape({
     temperature: string(200).isRequired(),
     code: string(200).isRequired(),
     humidity: string(200).isRequired(),
-    datetime: string(200).isRequired(),
-
-    
-  })    
+    datetime: string(200).isRequired(), 
+  })
+const logGetDtoInType = shape({
+  code: string(200).isRequired()
+})    

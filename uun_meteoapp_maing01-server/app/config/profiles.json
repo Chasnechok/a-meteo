@@ -60,6 +60,10 @@
       "location/list": {
         "sysStateList": ["active"],
         "profileList": ["Public"]
+      },
+      "log/get": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
       }
     }
   }

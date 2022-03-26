@@ -70,6 +70,11 @@
         "realization": "api/controllers/LocationController.list",
         "httpMethod": "GET",
         "type": "CMD"
+      },
+      "log/get": {
+        "realization": "api/controllers/LogController.get",
+        "httpMethod": "GET",
+        "type": "CMD"
       }
     }
   }

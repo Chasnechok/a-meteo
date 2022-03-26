@@ -23,6 +23,34 @@ const Create = {
   },
 };
 
+const Get = {
+  UC_CODE: `${LOG_ERROR_PREFIX}get/`,
+
+  InvalidDtoIn: class extends MeteoappMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Get.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+
+  LogDaoGetFailed: class extends MeteoappMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Get.UC_CODE}logDaoGetFailed`;
+      this.message = "Get log DAO get failed.";
+    }
+  },
+  LogDoesNotExist: class extends MeteoappMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Get.UC_CODE}logDoesNotExist`;
+      this.message = "Log does not exist.";
+    }
+  },
+};
+
 module.exports = {
+  Get,
   Create
 };
