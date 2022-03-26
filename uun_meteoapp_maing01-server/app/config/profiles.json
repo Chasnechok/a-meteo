@@ -64,6 +64,14 @@
       "log/get": {
         "sysStateList": ["active"],
         "profileList": ["Public"]
+      },
+      "log/list": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "log/listBySensorCode": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
       }
     }
   }

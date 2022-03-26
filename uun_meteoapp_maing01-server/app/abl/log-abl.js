@@ -12,6 +12,20 @@ const WARNINGS = {
   getUnsupportedKeys: {
     code: `${Errors.Get.UC_CODE}unsupportedKeys`
   },
+  listUnsupportedKeys: {
+    code: `${Errors.List.UC_CODE}unsupportedKeys`
+  },
+  listBySensorUnsupportedKeys: {
+    code: `${Errors.ListBySensorCode.UC_CODE}unsupportedKeys`
+  },
+};
+
+const DEFAULTS = {
+  sortBy: "name",
+  order: "asc",
+  state: "active",
+  pageIndex: 0,
+  pageSize: 100,
 };
 
 class LogAbl {
@@ -23,6 +37,77 @@ class LogAbl {
 
   }
 
+  async listBySensorCode(awid, dtoIn) {
+    // HDS 2., HDS 2.1.
+    let validationResult = this.validator.validate("listBySensorDtoInType", dtoIn);
+    // HDS 2.2., AS  2.2.1., HDS 2.3., AS  2.3.1.
+    let uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      WARNINGS.listBySensorUnsupportedKeys.code,
+      Errors.ListBySensorCode.InvalidDtoIn
+    );
+    // HDS 2.4
+    if (!dtoIn.sortBy) dtoIn.sortBy = DEFAULTS.sortBy;
+    if (!dtoIn.order) dtoIn.order = DEFAULTS.order;
+    if (!dtoIn.pageInfo) dtoIn.pageInfo = {};
+    if (!dtoIn.state) dtoIn.state = DEFAULTS.state;
+    if (!dtoIn.pageInfo.pageSize) dtoIn.pageInfo.pageSize = DEFAULTS.pageSize;
+    if (!dtoIn.pageInfo.pageIndex) dtoIn.pageInfo.pageIndex = DEFAULTS.pageIndex;
+    dtoIn.awid = awid;
+
+
+    // HDS 3.
+    let list;
+    try {
+      list = await this.dao.listByCode(dtoIn.code,awid, dtoIn.sortBy, dtoIn.order, dtoIn.state, dtoIn.pageInfo,dtoIn.dateFrom,dtoIn.dateTo);
+    } catch (e) {
+      // AS  3.1.
+
+      throw e;
+    }
+
+    // HDS 4.
+    list.uuAppErrorMap = uuAppErrorMap;
+    return list;
+  }
+
+  async list(awid, dtoIn) {
+
+    // HDS 2., HDS 2.1.
+    let validationResult = this.validator.validate("logListDtoInType", dtoIn);
+    // HDS 2.2., AS  2.2.1., HDS 2.3., AS  2.3.1.
+    let uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      WARNINGS.listUnsupportedKeys.code,
+      Errors.List.InvalidDtoIn
+    );
+    // HDS 2.4
+    if (!dtoIn.sortBy) dtoIn.sortBy = DEFAULTS.sortBy;
+    if (!dtoIn.order) dtoIn.order = DEFAULTS.order;
+    if (!dtoIn.pageInfo) dtoIn.pageInfo = {};
+    if (!dtoIn.state) dtoIn.state = DEFAULTS.state;
+    if (!dtoIn.pageInfo.pageSize) dtoIn.pageInfo.pageSize = DEFAULTS.pageSize;
+    if (!dtoIn.pageInfo.pageIndex) dtoIn.pageInfo.pageIndex = DEFAULTS.pageIndex;
+    dtoIn.awid = awid;
+
+
+    // HDS 3.
+    let list;
+    try {
+      list = await this.dao.list(awid, dtoIn.sortBy, dtoIn.order, dtoIn.state, dtoIn.pageInfo,dtoIn.dateFrom,dtoIn.dateTo);
+    } catch (e) {
+      // AS  3.1.
+
+      throw e;
+    }
+
+    // HDS 4.
+    list.uuAppErrorMap = uuAppErrorMap;
+    return list;
+  }
+
   async get(awid, dtoIn) {
     let validationResult = this.validator.validate("logGetDtoInType", dtoIn);
     // HDS 2.2., AS  2.2.1., HDS 2.3., AS  2.3.1.
@@ -32,12 +117,12 @@ class LogAbl {
       WARNINGS.getUnsupportedKeys.code,
       Errors.Get.InvalidDtoIn
     );
-    
+
     // HDS 2.4.
     dtoIn.awid = awid;
     // HDS 3.
     let logs;
-    
+
 
     try {
       logs = await this.dao.getAllByCode(dtoIn.awid,dtoIn.code);
@@ -59,10 +144,10 @@ class LogAbl {
       uuAppErrorMap
     }
   }
-  
+
 
   async create(awid, dtoIn) {
-    
+
 
 
     let validationResult = this.validator.validate("logCreateDtoInType", dtoIn);
@@ -76,7 +161,7 @@ class LogAbl {
 
 
     dtoIn.awid = awid;
-    
+
     let newSensor;
     let sensor;
 

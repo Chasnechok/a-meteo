@@ -75,6 +75,16 @@
         "realization": "api/controllers/LogController.get",
         "httpMethod": "GET",
         "type": "CMD"
+      },
+      "log/list": {
+        "realization": "api/controllers/LogController.list",
+        "httpMethod": "GET",
+        "type": "CMD"
+      },
+      "log/listBySensorCode": {
+        "realization": "api/controllers/LogController.listBySensorCode",
+        "httpMethod": "GET",
+        "type": "CMD"
       }
     }
   }
