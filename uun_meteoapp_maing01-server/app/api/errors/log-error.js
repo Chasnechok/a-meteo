@@ -128,7 +128,28 @@ const ListByLocationCode = {
   },
 };
 
+const BulkCreate = {
+  UC_CODE: `${LOG_ERROR_PREFIX}bulkCreate/`,
+  InvalidDtoIn: class extends MeteoappMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${BulkCreate.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+
+  LogDaoCreateFailed: class extends MeteoappMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${BulkCreate.UC_CODE}logDaoCreateFailed`;
+      this.message = "Create log DAO create failed.";
+    }
+  },
+};
+
+
 module.exports = {
+  BulkCreate,
   ListByLocationCode,
   ListBySensorCode,
   List,

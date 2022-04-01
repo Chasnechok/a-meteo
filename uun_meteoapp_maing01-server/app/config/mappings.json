@@ -90,6 +90,11 @@
         "realization": "api/controllers/LogController.listByLocationCode",
         "httpMethod": "GET",
         "type": "CMD"
+      },
+      "log/bulkCreate": {
+        "realization": "api/controllers/LogController.bulkCreate",
+        "httpMethod": "POST",
+        "type": "CMD"
       }
     }
   }

@@ -5,6 +5,21 @@ const logCreateDtoInType = shape({
     humidity: string(200).isRequired(),
     datetime: string(200).isRequired(),
   })
+
+const logBulkCreateDtoInType = shape({
+
+  array: array(
+    shape({
+      temperature: string(200).isRequired(),
+      code: string(200).isRequired(),
+      humidity: string(200).isRequired(),
+      datetime: string(200).isRequired(),
+    })
+  ).isRequired()
+
+})
+
+
 const logGetDtoInType = shape({
   code: string(200).isRequired()
 })

@@ -21,6 +21,9 @@ const WARNINGS = {
   listByLocationCodeUnsupportedKeys: {
     code: `${Errors.ListByLocationCode.UC_CODE}unsupportedKeys`
   },
+  bulkCreateUnsupportedKeys: {
+    code: `${Errors.BulkCreate.UC_CODE}unsupportedKeys`
+  },
 };
 
 const DEFAULTS = {
@@ -37,6 +40,94 @@ class LogAbl {
     this.validator = Validator.load();
     this.dao = DaoFactory.getDao("log");
     this.sensordao = DaoFactory.getDao("sensor");
+
+  }
+
+  async bulkCreate(awid, dtoIn) {
+
+
+   let validationResult = this.validator.validate("logBulkCreateDtoInType", dtoIn);
+    // HDS 2.2., AS  2.2.1., HDS 2.3., AS  2.3.1.
+    let uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      WARNINGS.bulkCreateUnsupportedKeys.code,
+      Errors.BulkCreate.InvalidDtoIn
+    );
+    dtoIn.awid = awid;
+
+    let sensor;
+    let newSensor;
+    let locationcode="";
+
+    let code=dtoIn["array"][0]["code"];
+
+
+    try {
+      sensor = await this.sensordao.getByCode(dtoIn.awid,code);
+
+
+    } catch (e) {
+      // AS  3.1.
+      if (e instanceof ObjectStoreError) {
+        throw new Errors.BulkCreate.LogDaoCreateFailed({ uuAppErrorMap });
+      }
+      throw e;
+    }
+    //sensor code does not exist, creates a new sensor with a searched sensor code
+    if (!sensor) {
+      let dtoIn2 = {
+        "name": "",
+        "code": code,
+        "locationCode": "",
+        "state": "inital",
+        "awid": dtoIn.awid
+      }
+      try {
+        newSensor = await this.sensordao.create(dtoIn2);
+
+
+      } catch (e) {
+        // AS  3.1.
+        if (e instanceof ObjectStoreError) {
+          throw new Errors.Create.LogDaoCreateFailed({ uuAppErrorMap });
+        }
+        throw e;
+      }
+    }else{
+      //if sensor.state is active or passive, log receives locationId from the sensor
+      if(!(sensor.state === "initial")){
+        locationcode = sensor.locationCode
+      }else{return} //if forbidden, throws away
+
+    }
+
+
+
+
+    for (let i = 0; i < dtoIn["array"].length; i++) {
+
+      let log=dtoIn["array"][i];
+
+
+      log.locationcode=locationcode;
+
+
+      try {
+        log = await this.dao.create(log);
+
+
+      } catch (e) {
+        // AS  3.1.
+        if (e instanceof ObjectStoreError) {
+          throw new Errors.Create.LogDaoCreateFailed({ uuAppErrorMap }, e);
+        }
+        throw e;
+      }
+
+
+    }
+
 
   }
 
@@ -73,7 +164,7 @@ class LogAbl {
     list.uuAppErrorMap = uuAppErrorMap;
     return list;
   }
-  
+
 
   async listBySensorCode(awid, dtoIn) {
     // HDS 2., HDS 2.1.
@@ -199,6 +290,7 @@ class LogAbl {
 
 
     dtoIn.awid = awid;
+    dtoIn.locationCode="";
 
     let newSensor;
     let sensor;

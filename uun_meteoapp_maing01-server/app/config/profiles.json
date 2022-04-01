@@ -76,6 +76,10 @@
       "log/listByLocationCode": {
         "sysStateList": ["active"],
         "profileList": ["Public"]
+      },
+      "log/bulkCreate": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
       }
     }
   }
