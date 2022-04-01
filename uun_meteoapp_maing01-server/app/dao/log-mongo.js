@@ -5,6 +5,12 @@ class LogMongo extends UuObjectDao {
 
   async createSchema(){
   }
+  async delete(id) {
+    let filter = {
+      id:id
+    };
+    return await super.deleteOne(filter);
+  }
   async create(uuObject) {
     uuObject.datetime=new Date(uuObject.datetime);
     return await super.insertOne(uuObject);

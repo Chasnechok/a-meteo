@@ -1,4 +1,9 @@
 /* eslint-disable */
+
+const logDeleteDtoInType = shape({
+  id: mongoId().isRequired()
+})
+
 const logCreateDtoInType = shape({
     temperature: string(200).isRequired(),
     code: string(200).isRequired(),

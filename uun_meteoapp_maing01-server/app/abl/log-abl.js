@@ -24,6 +24,9 @@ const WARNINGS = {
   bulkCreateUnsupportedKeys: {
     code: `${Errors.BulkCreate.UC_CODE}unsupportedKeys`
   },
+  deleteUnsupportedKeys: {
+    code: `${Errors.Delete.UC_CODE}unsupportedKeys`
+  },
 };
 
 const DEFAULTS = {
@@ -42,6 +45,37 @@ class LogAbl {
     this.sensordao = DaoFactory.getDao("sensor");
 
   }
+
+  async delete(awid, dtoIn) {
+    let validationResult = this.validator.validate("logDeleteDtoInType", dtoIn);
+    // HDS 2.2., AS  2.2.1., HDS 2.3., AS  2.3.1.
+    let uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      WARNINGS.deleteUnsupportedKeys.code,
+      Errors.Delete.InvalidDtoIn
+    );
+    dtoIn.awid = awid;
+    let location;
+
+
+
+    try {
+      location = await this.dao.delete(dtoIn.id);
+    } catch (e) {
+      // AS  3.1.
+      if (e instanceof ObjectStoreError) {
+        throw new Errors.Delete.LogDaoDeleteFailed({ uuAppErrorMap });
+      }
+      throw e;
+    }
+
+    return {
+      location,
+      uuAppErrorMap
+    }
+  }
+
 
   async bulkCreate(awid, dtoIn) {
 

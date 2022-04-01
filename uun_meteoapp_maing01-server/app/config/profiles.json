@@ -80,6 +80,10 @@
       "log/bulkCreate": {
         "sysStateList": ["active"],
         "profileList": ["Public"]
+      },
+      "log/delete": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
       }
     }
   }

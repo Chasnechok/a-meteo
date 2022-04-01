@@ -95,6 +95,11 @@
         "realization": "api/controllers/LogController.bulkCreate",
         "httpMethod": "POST",
         "type": "CMD"
+      },
+      "log/delete": {
+        "realization": "api/controllers/LogController.delete",
+        "httpMethod": "POST",
+        "type": "CMD"
       }
     }
   }

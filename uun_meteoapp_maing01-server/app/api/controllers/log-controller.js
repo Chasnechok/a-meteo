@@ -3,6 +3,10 @@ const LogAbl = require("../../abl/log-abl.js");
 
 class LogController {
 
+  delete(ucEnv) {
+    return LogAbl.delete(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
+  }
+
   bulkCreate(ucEnv) {
     return LogAbl.bulkCreate(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
   }

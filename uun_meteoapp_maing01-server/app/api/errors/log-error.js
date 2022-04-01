@@ -148,7 +148,26 @@ const BulkCreate = {
 };
 
 
+const Delete = {
+  UC_CODE: `${LOG_ERROR_PREFIX}delete/`,
+  InvalidDtoIn: class extends MeteoappMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Delete.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+  LogDaoDeleteFailed: class extends MeteoappMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Delete.UC_CODE}logDaoDeleteFailed`;
+      this.message = "Delete log DAO delete failed.";
+    }
+  },
+};
+
 module.exports = {
+  Delete,
   BulkCreate,
   ListByLocationCode,
   ListBySensorCode,
