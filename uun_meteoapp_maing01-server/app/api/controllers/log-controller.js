@@ -3,6 +3,10 @@ const LogAbl = require("../../abl/log-abl.js");
 
 class LogController {
 
+  listByLocationCode(ucEnv) {
+    return LogAbl.listByLocationCode(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
+  }
+
   listBySensorCode(ucEnv) {
     return LogAbl.listBySensorCode(ucEnv.getUri().getAwid(), ucEnv.getDtoIn());
   }

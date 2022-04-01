@@ -70,6 +70,32 @@ class LogMongo extends UuObjectDao {
 
     return await super.find(filter, pageInfo, sort);
   }
+  async listByLocationCode(locationCode,awid, sortBy, order, state, pageInfo,dateFrom,dateTo) {
+
+    let filter=  {};
+
+    if(!dateFrom||!dateTo){
+      filter = {
+        awid: awid,
+        state: state,
+        "locationCode": {$in : [locationCode]},
+      };
+    }
+    else {
+      filter = {
+        awid: awid,
+        state: state,
+        "locationCode": {$in : [locationCode]},
+        datetime:{$gte: new Date(dateFrom),$lt: new Date(dateTo)}
+      };
+
+    }
+    const sort = {
+      [sortBy]: order === "asc" ? 1 : -1,
+    };
+
+    return await super.find(filter, pageInfo, sort);
+  }
 }
 
 module.exports = LogMongo;

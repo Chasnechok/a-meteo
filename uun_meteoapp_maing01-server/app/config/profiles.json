@@ -4,7 +4,7 @@
     "useCaseMap": {}
   },
   "*": {
-    "profileList": ["Authorities","Executives","AwidLicenseOwner","Public"],
+    "profileList": ["Authorities","Executives","AwidLicenseOwner","Public","Pubic"],
     "useCaseMap": {
       "sys/uuAppWorkspace/init": {
         "sysStateList": ["created"],
@@ -70,6 +70,10 @@
         "profileList": ["Public"]
       },
       "log/listBySensorCode": {
+        "sysStateList": ["active"],
+        "profileList": ["Public"]
+      },
+      "log/listByLocationCode": {
         "sysStateList": ["active"],
         "profileList": ["Public"]
       }

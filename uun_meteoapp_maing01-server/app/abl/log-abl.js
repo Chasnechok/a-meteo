@@ -15,8 +15,11 @@ const WARNINGS = {
   listUnsupportedKeys: {
     code: `${Errors.List.UC_CODE}unsupportedKeys`
   },
-  listBySensorUnsupportedKeys: {
+  listBySensorCodeUnsupportedKeys: {
     code: `${Errors.ListBySensorCode.UC_CODE}unsupportedKeys`
+  },
+  listByLocationCodeUnsupportedKeys: {
+    code: `${Errors.ListByLocationCode.UC_CODE}unsupportedKeys`
   },
 };
 
@@ -37,14 +40,49 @@ class LogAbl {
 
   }
 
-  async listBySensorCode(awid, dtoIn) {
-    // HDS 2., HDS 2.1.
-    let validationResult = this.validator.validate("listBySensorDtoInType", dtoIn);
+  async listByLocationCode(awid, dtoIn) {
+    let validationResult = this.validator.validate("listByLocationCodeDtoInType", dtoIn);
     // HDS 2.2., AS  2.2.1., HDS 2.3., AS  2.3.1.
     let uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.listBySensorUnsupportedKeys.code,
+      WARNINGS.listByLocationCodeUnsupportedKeys.code,
+      Errors.ListByLocationCode.InvalidDtoIn
+    );
+    // HDS 2.4
+    if (!dtoIn.sortBy) dtoIn.sortBy = DEFAULTS.sortBy;
+    if (!dtoIn.order) dtoIn.order = DEFAULTS.order;
+    if (!dtoIn.pageInfo) dtoIn.pageInfo = {};
+    if (!dtoIn.state) dtoIn.state = DEFAULTS.state;
+    if (!dtoIn.pageInfo.pageSize) dtoIn.pageInfo.pageSize = DEFAULTS.pageSize;
+    if (!dtoIn.pageInfo.pageIndex) dtoIn.pageInfo.pageIndex = DEFAULTS.pageIndex;
+    dtoIn.awid = awid;
+
+
+    // HDS 3.
+    let list;
+    try {
+      list = await this.dao.listByLocationCode(dtoIn.locationCode,awid, dtoIn.sortBy, dtoIn.order, dtoIn.state, dtoIn.pageInfo,dtoIn.dateFrom,dtoIn.dateTo);
+    } catch (e) {
+      // AS  3.1.
+
+      throw e;
+    }
+
+    // HDS 4.
+    list.uuAppErrorMap = uuAppErrorMap;
+    return list;
+  }
+  
+
+  async listBySensorCode(awid, dtoIn) {
+    // HDS 2., HDS 2.1.
+    let validationResult = this.validator.validate("listBySensorCodeDtoInType", dtoIn);
+    // HDS 2.2., AS  2.2.1., HDS 2.3., AS  2.3.1.
+    let uuAppErrorMap = ValidationHelper.processValidationResult(
+      dtoIn,
+      validationResult,
+      WARNINGS.listBySensorCodeUnsupportedKeys.code,
       Errors.ListBySensorCode.InvalidDtoIn
     );
     // HDS 2.4

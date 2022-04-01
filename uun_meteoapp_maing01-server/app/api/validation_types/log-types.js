@@ -20,8 +20,20 @@ const logListDtoInType = shape({
     pageSize: integer(),
   }),
 });
-const listBySensorDtoInType = shape({
+const listBySensorCodeDtoInType = shape({
   code: string(200).isRequired(),
+  sortBy: oneOf(["datetime"]),
+  order: oneOf(["asc", "desc"]),
+  dateFrom:string(200),
+  dateTo:string(200),
+  state: oneOf(["active", "deleted"]),
+  pageInfo: shape({
+    pageIndex: integer(),
+    pageSize: integer(),
+  }),
+});
+const listByLocationCodeDtoInType = shape({
+  locationCode: string(200).isRequired(),
   sortBy: oneOf(["datetime"]),
   order: oneOf(["asc", "desc"]),
   dateFrom:string(200),

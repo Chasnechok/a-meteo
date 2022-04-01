@@ -55,7 +55,7 @@ const List = {
   InvalidDtoIn: class extends MeteoappMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Get.UC_CODE}invalidDtoIn`;
+      this.code = `${List.UC_CODE}invalidDtoIn`;
       this.message = "DtoIn is not valid.";
     }
   },
@@ -63,14 +63,14 @@ const List = {
   LogDaoGetFailed: class extends MeteoappMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Get.UC_CODE}logDaoGetFailed`;
-      this.message = "Get log DAO get failed.";
+      this.code = `${List.UC_CODE}logDaoListFailed`;
+      this.message = "List log DAO list failed.";
     }
   },
   LogDoesNotExist: class extends MeteoappMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Get.UC_CODE}logDoesNotExist`;
+      this.code = `${List.UC_CODE}logDoesNotExist`;
       this.message = "Log does not exist.";
     }
   },
@@ -102,7 +102,34 @@ const ListBySensorCode = {
   },
 };
 
+const ListByLocationCode = {
+  UC_CODE: `${LOG_ERROR_PREFIX}listByLocationCode/`,
+  InvalidDtoIn: class extends MeteoappMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Get.UC_CODE}invalidDtoIn`;
+      this.message = "DtoIn is not valid.";
+    }
+  },
+
+  LogDaoGetFailed: class extends MeteoappMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Get.UC_CODE}logDaoGetFailed`;
+      this.message = "Get log DAO get failed.";
+    }
+  },
+  LogDoesNotExist: class extends MeteoappMainUseCaseError {
+    constructor() {
+      super(...arguments);
+      this.code = `${Get.UC_CODE}logDoesNotExist`;
+      this.message = "Log does not exist.";
+    }
+  },
+};
+
 module.exports = {
+  ListByLocationCode,
   ListBySensorCode,
   List,
   Get,
