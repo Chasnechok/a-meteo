@@ -1,18 +1,17 @@
 /* eslint-disable */
 
 const logDeleteDtoInType = shape({
-  id: mongoId().isRequired()
+  code: string(200).isRequired()
 })
 
 const logCreateDtoInType = shape({
     temperature: string(200).isRequired(),
-    code: string(200).isRequired(),
+    sensorCode: string(200).isRequired(),
     humidity: string(200).isRequired(),
     datetime: string(200).isRequired(),
   })
 
 const logBulkCreateDtoInType = shape({
-
   array: array(
     shape({
       temperature: string(200).isRequired(),
@@ -21,7 +20,6 @@ const logBulkCreateDtoInType = shape({
       datetime: string(200).isRequired(),
     })
   ).isRequired()
-
 })
 
 
@@ -41,7 +39,7 @@ const logListDtoInType = shape({
   }),
 });
 const listBySensorCodeDtoInType = shape({
-  code: string(200).isRequired(),
+  sensorCode: string(200).isRequired(),
   sortBy: oneOf(["datetime"]),
   order: oneOf(["asc", "desc"]),
   dateFrom:string(200),

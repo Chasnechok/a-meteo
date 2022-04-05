@@ -1,10 +1,10 @@
 {
   "{asid}": {
-    "profileList": ["AsidAuthorities","AsidExecutives","AsidLicenseOwner","Public"],
+    "profileList": ["AsidAuthorities","AsidExecutives","AsidLicenseOwner","Public"],  
     "useCaseMap": {}
   },
   "*": {
-    "profileList": ["Authorities","Executives","AwidLicenseOwner","Public","Pubic"],
+    "profileList": ["Authorities","Executives","AwidLicenseOwner","Public","Owner", "Employee","Sensor"],
     "useCaseMap": {
       "sys/uuAppWorkspace/init": {
         "sysStateList": ["created"],
@@ -17,74 +17,87 @@
         "sysStateList": ["created"],
         "profileList": ["Public","AwidLicenseOwner"]
       },
+
+      
       "sensor/create": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
-      },
+        "profileList": ["Owner"]
+    },
       "sensor/get": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Owner","Employee"]
       },
       "sensor/update": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Owner"]
       },
       "sensor/list": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Owner","Employee"]
       },
       "sensor/delete": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Owner"]
       },
+
+
+
+
+
       "log/create": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
-      },
-      "location/create": {
-        "sysStateList": ["active"],
-        "profileList": ["Public"]
-      },
-      "location/get": {
-        "sysStateList": ["active"],
-        "profileList": ["Public"]
-      },
-      "location/delete": {
-        "sysStateList": ["active"],
-        "profileList": ["Public"]
-      },
-      "location/update": {
-        "sysStateList": ["active"],
-        "profileList": ["Public"]
-      },
-      "location/list": {
-        "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Owner","Sensor"]
       },
       "log/get": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Owner", "Employee"]
       },
       "log/list": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Owner", "Employee"]
       },
       "log/listBySensorCode": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Owner", "Employee"]
       },
       "log/listByLocationCode": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Owner", "Employee"]
       },
       "log/bulkCreate": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Sensor"]
       },
       "log/delete": {
         "sysStateList": ["active"],
-        "profileList": ["Public"]
+        "profileList": ["Owner"]
+      },
+
+
+
+
+
+      "location/create": {
+        "sysStateList": ["active"],
+        "profileList": ["Owner"]
+      },
+      "location/get": {
+        "sysStateList": ["active"],
+        "profileList": ["Owner", "Employee"]
+      },
+      "location/delete": {
+        "sysStateList": ["active"],
+        "profileList": ["Owner"]
+      },
+      "location/update": {
+        "sysStateList": ["active"],
+        "profileList": ["Owner"]
+      },
+      "location/list": {
+        "sysStateList": ["active"],
+        "profileList": ["Owner", "Employee"]
       }
+      
     }
   }
 }

@@ -52,16 +52,16 @@ class LogAbl {
     let uuAppErrorMap = ValidationHelper.processValidationResult(
       dtoIn,
       validationResult,
-      WARNINGS.deleteUnsupportedKeys.code,
+      WARNINGS.deleteUnsupportedKeys.code, 
       Errors.Delete.InvalidDtoIn
     );
     dtoIn.awid = awid;
-    let location;
+    let log;
 
 
 
     try {
-      location = await this.dao.delete(dtoIn.id);
+      log = await this.dao.delete(dtoIn.code);
     } catch (e) {
       // AS  3.1.
       if (e instanceof ObjectStoreError) {
@@ -71,7 +71,7 @@ class LogAbl {
     }
 
     return {
-      location,
+      log,
       uuAppErrorMap
     }
   }
@@ -91,7 +91,6 @@ class LogAbl {
     dtoIn.awid = awid;
 
     let sensor;
-    let newSensor;
     let locationcode="";
 
     let code=dtoIn["array"][0]["code"];
@@ -118,7 +117,7 @@ class LogAbl {
         "awid": dtoIn.awid
       }
       try {
-        newSensor = await this.sensordao.create(dtoIn2);
+        await this.sensordao.create(dtoIn2);
 
 
       } catch (e) {
@@ -130,22 +129,15 @@ class LogAbl {
       }
     }else{
       //if sensor.state is active or passive, log receives locationId from the sensor
-      if(!(sensor.state === "initial")){
-        locationcode = sensor.locationCode
-      }else{return} //if forbidden, throws away
+      if(sensor.state === ("initial") || sensor.state === ("forbidden")) return 
+      dtoIn.locationCode = sensor.locationCode
 
     }
-
-
-
-
     for (let i = 0; i < dtoIn["array"].length; i++) {
 
       let log=dtoIn["array"][i];
 
-
       log.locationcode=locationcode;
-
 
       try {
         log = await this.dao.create(log);
@@ -159,9 +151,8 @@ class LogAbl {
         throw e;
       }
 
-
+    
     }
-
 
   }
 
@@ -223,7 +214,7 @@ class LogAbl {
     // HDS 3.
     let list;
     try {
-      list = await this.dao.listByCode(dtoIn.code,awid, dtoIn.sortBy, dtoIn.order, dtoIn.state, dtoIn.pageInfo,dtoIn.dateFrom,dtoIn.dateTo);
+      list = await this.dao.listByCode(dtoIn.sensorCode,awid, dtoIn.sortBy, dtoIn.order, dtoIn.state, dtoIn.pageInfo,dtoIn.dateFrom,dtoIn.dateTo);
     } catch (e) {
       // AS  3.1.
 
@@ -321,17 +312,21 @@ class LogAbl {
       WARNINGS.createUnsupportedKeys.code,
       Errors.Create.InvalidDtoIn
     );
+    
+    
+    //random log code using crypto module
+    const crypto = require("crypto");
+    dtoIn.code = crypto.randomBytes(16).toString("hex");
 
-
-    dtoIn.awid = awid;
     dtoIn.locationCode="";
+    dtoIn.state = "active";
+    dtoIn.awid = awid;
 
-    let newSensor;
     let sensor;
 
     //get sensor by code
     try {
-      sensor = await this.sensordao.getByCode(dtoIn.awid,dtoIn.code);
+      sensor = await this.sensordao.getByCode(dtoIn.awid,dtoIn.sensorCode);
 
 
     } catch (e) {
@@ -351,7 +346,7 @@ class LogAbl {
         "awid": dtoIn.awid
       }
     try {
-      newSensor = await this.sensordao.create(dtoIn2);
+      await this.sensordao.create(dtoIn2);
 
 
     } catch (e) {
@@ -363,15 +358,14 @@ class LogAbl {
     }
     }else{
       //if sensor.state is active or passive, log receives locationId from the sensor
-      if(!(sensor.state === "initial")){
-        dtoIn.locationCode = sensor.locationCode
-      }else{return} //if forbidden, throws away
+      if(sensor.state === ("initial") || sensor.state === ("forbidden")) return 
+      dtoIn.locationCode = sensor.locationCode
 
+     
     }
     // HDS 4.
-    //create log with active state
+    //create log 
     let log;
-    dtoIn.state = "active";
     try {
       log = await this.dao.create(dtoIn);
 

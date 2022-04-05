@@ -5,9 +5,9 @@ class LogMongo extends UuObjectDao {
 
   async createSchema(){
   }
-  async delete(id) {
+  async delete(code) {
     let filter = {
-      id:id
+      code:code
     };
     return await super.deleteOne(filter);
   }
@@ -50,7 +50,7 @@ class LogMongo extends UuObjectDao {
     return await super.find(filter, pageInfo, sort);
   }
 
-  async listByCode(code,awid, sortBy, order, state, pageInfo,dateFrom,dateTo) {
+  async listByCode(sensorCode,awid, sortBy, order, state, pageInfo,dateFrom,dateTo) {
 
     let filter=  {};
 
@@ -58,14 +58,14 @@ class LogMongo extends UuObjectDao {
       filter = {
         awid: awid,
         state: state,
-        "code": {$in : [code]},
+        "sensorCode": {$in : [sensorCode]},
       };
     }
     else {
       filter = {
         awid: awid,
         state: state,
-        "code": {$in : [code]},
+        "sensorCode": {$in : [sensorCode]},
         datetime:{$gte: new Date(dateFrom),$lt: new Date(dateTo)}
       };
 
