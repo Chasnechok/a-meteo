@@ -60,20 +60,14 @@ const List = {
     }
   },
 
-  LogDaoGetFailed: class extends MeteoappMainUseCaseError {
+  LogDaoListFailed: class extends MeteoappMainUseCaseError {
     constructor() {
       super(...arguments);
       this.code = `${List.UC_CODE}logDaoListFailed`;
       this.message = "List log DAO list failed.";
     }
-  },
-  LogDoesNotExist: class extends MeteoappMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${List.UC_CODE}logDoesNotExist`;
-      this.message = "Log does not exist.";
-    }
-  },
+  }
+  
 };
 
 const ListBySensorCode = {
@@ -81,25 +75,18 @@ const ListBySensorCode = {
   InvalidDtoIn: class extends MeteoappMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Get.UC_CODE}invalidDtoIn`;
+      this.code = `${ListBySensorCode.UC_CODE}invalidDtoIn`;
       this.message = "DtoIn is not valid.";
     }
   },
 
-  LogDaoGetFailed: class extends MeteoappMainUseCaseError {
+  LogDaoListBySensorCodeFailed: class extends MeteoappMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Get.UC_CODE}logDaoGetFailed`;
-      this.message = "Get log DAO get failed.";
+      this.code = `${ListBySensorCode.UC_CODE}logDaoListBySensorCodeFailed`;
+      this.message = "ListBySensorCode log DAO failed.";
     }
-  },
-  LogDoesNotExist: class extends MeteoappMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${Get.UC_CODE}logDoesNotExist`;
-      this.message = "Log does not exist.";
-    }
-  },
+  }
 };
 
 const ListByLocationCode = {
@@ -112,18 +99,11 @@ const ListByLocationCode = {
     }
   },
 
-  LogDaoGetFailed: class extends MeteoappMainUseCaseError {
+  LogDaoListByLocationCodeFailed: class extends MeteoappMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${Get.UC_CODE}logDaoGetFailed`;
-      this.message = "Get log DAO get failed.";
-    }
-  },
-  LogDoesNotExist: class extends MeteoappMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${Get.UC_CODE}logDoesNotExist`;
-      this.message = "Log does not exist.";
+      this.code = `${ListByLocationCode.UC_CODE}logDaoListByLocationCodeFailed`;
+      this.message = "ListByLocationCode log DAO failed.";
     }
   },
 };
@@ -138,11 +118,11 @@ const BulkCreate = {
     }
   },
 
-  LogDaoCreateFailed: class extends MeteoappMainUseCaseError {
+  LogDaoBulkCreateFailed: class extends MeteoappMainUseCaseError {
     constructor() {
       super(...arguments);
-      this.code = `${BulkCreate.UC_CODE}logDaoCreateFailed`;
-      this.message = "Create log DAO create failed.";
+      this.code = `${BulkCreate.UC_CODE}logDaoBulkCreateFailed`;
+      this.message = "BulkCreate log DAO bulkCreate failed.";
     }
   },
 };

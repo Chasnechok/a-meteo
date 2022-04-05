@@ -103,7 +103,7 @@ class LogAbl {
     } catch (e) {
       // AS  3.1.
       if (e instanceof ObjectStoreError) {
-        throw new Errors.BulkCreate.LogDaoCreateFailed({ uuAppErrorMap });
+        throw new Errors.BulkCreate.LogDaoBulkCreateFailed({ uuAppErrorMap });
       }
       throw e;
     }
@@ -180,8 +180,9 @@ class LogAbl {
     try {
       list = await this.dao.listByLocationCode(dtoIn.locationCode,awid, dtoIn.sortBy, dtoIn.order, dtoIn.state, dtoIn.pageInfo,dtoIn.dateFrom,dtoIn.dateTo);
     } catch (e) {
-      // AS  3.1.
-
+      if (e instanceof ObjectStoreError) {
+        throw new Errors.ListByLocationCode.LogDaoListByLocationCodeFailed({ uuAppErrorMap });
+      }
       throw e;
     }
 
@@ -217,7 +218,9 @@ class LogAbl {
       list = await this.dao.listByCode(dtoIn.sensorCode,awid, dtoIn.sortBy, dtoIn.order, dtoIn.state, dtoIn.pageInfo,dtoIn.dateFrom,dtoIn.dateTo);
     } catch (e) {
       // AS  3.1.
-
+      if (e instanceof ObjectStoreError) {
+        throw new Errors.ListBySensorCode.LogDaoListBySensorCodeFailed({ uuAppErrorMap });
+      }
       throw e;
     }
 
@@ -253,7 +256,9 @@ class LogAbl {
       list = await this.dao.list(awid, dtoIn.sortBy, dtoIn.order, dtoIn.state, dtoIn.pageInfo,dtoIn.dateFrom,dtoIn.dateTo);
     } catch (e) {
       // AS  3.1.
-
+      if (e instanceof ObjectStoreError) {
+        throw new Errors.List.LogDaoListFailed({ uuAppErrorMap });
+      }
       throw e;
     }
 
@@ -288,10 +293,7 @@ class LogAbl {
       }
       throw e;
     }
-    //logCode does not exist
-    if (logs === {}) {
-      throw new Errors.Get.LogDoesNotExist({ uuAppErrorMap });
-    }
+    
     //returns log + errormap
     return {
       logs,
