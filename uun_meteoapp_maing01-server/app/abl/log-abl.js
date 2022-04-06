@@ -1,4 +1,5 @@
 "use strict";
+const { lchown } = require("fs");
 const Path = require("path");
 const { Validator } = require("uu_appg01_server").Validation;
 const { DaoFactory } = require("uu_appg01_server").ObjectStore;
@@ -91,14 +92,13 @@ class LogAbl {
     dtoIn.awid = awid;
 
     let sensor;
-    let locationcode="";
+    let locationCode="";
 
-    let code=dtoIn["array"][0]["code"];
+    let sensorCode=dtoIn["array"][0]["sensorCode"];
 
 
     try {
-      sensor = await this.sensordao.getByCode(dtoIn.awid,code);
-
+      sensor = await this.sensordao.getBySensorCode(dtoIn.awid,sensorCode);
 
     } catch (e) {
       // AS  3.1.
@@ -110,10 +110,10 @@ class LogAbl {
     //sensor code does not exist, creates a new sensor with a searched sensor code
     if (!sensor) {
       let dtoIn2 = {
-        "name": "",
-        "code": code,
-        "locationCode": "",
-        "state": "inital",
+        "name": null,
+        "code": sensorCode,
+        "locationCode": null,
+        "state": "initial",
         "awid": dtoIn.awid
       }
       try {
@@ -127,22 +127,25 @@ class LogAbl {
         }
         throw e;
       }
+      return uuAppErrorMap
     }else{
+      
       //if sensor.state is active or passive, log receives locationId from the sensor
       if(sensor.state === ("initial") || sensor.state === ("forbidden")) return 
-      dtoIn.locationCode = sensor.locationCode
-
+      locationCode = sensor.locationCode
+      
     }
     for (let i = 0; i < dtoIn["array"].length; i++) {
+      const crypto = require("crypto");
 
       let log=dtoIn["array"][i];
-
-      log.locationcode=locationcode;
+      log.code = crypto.randomBytes(16).toString("hex");
+      log.locationCode=locationCode;
+      log.state = 'active'
+      log.awid = awid
 
       try {
         log = await this.dao.create(log);
-
-
       } catch (e) {
         // AS  3.1.
         if (e instanceof ObjectStoreError) {
@@ -320,7 +323,7 @@ class LogAbl {
     const crypto = require("crypto");
     dtoIn.code = crypto.randomBytes(16).toString("hex");
 
-    dtoIn.locationCode="";
+    dtoIn.locationCode = null;
     dtoIn.state = "active";
     dtoIn.awid = awid;
 
@@ -341,12 +344,13 @@ class LogAbl {
     //sensor code does not exist, creates a new sensor with a searched sensor code
     if (!sensor) {
       let dtoIn2 = {
-        "name": "",
-        "code": dtoIn.code,
-        "locationCode": "",
-        "state": "inital",
+        "name": null,
+        "code": dtoIn.sensorCode,
+        "locationCode": null,
+        "state": "initial",
         "awid": dtoIn.awid
       }
+      
     try {
       await this.sensordao.create(dtoIn2);
 
@@ -358,6 +362,7 @@ class LogAbl {
       }
       throw e;
     }
+    return uuAppErrorMap
     }else{
       //if sensor.state is active or passive, log receives locationId from the sensor
       if(sensor.state === ("initial") || sensor.state === ("forbidden")) return 
@@ -370,7 +375,7 @@ class LogAbl {
     let log;
     try {
       log = await this.dao.create(dtoIn);
-
+      
 
     } catch (e) {
       // AS  3.1.
@@ -380,9 +385,12 @@ class LogAbl {
       throw e;
     }
 
-    return log;
+    return {
+      log,
+      uuAppErrorMap
+    }}
   }
 
-}
+
 
 module.exports = new LogAbl();

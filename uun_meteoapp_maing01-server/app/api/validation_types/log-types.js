@@ -15,7 +15,7 @@ const logBulkCreateDtoInType = shape({
   array: array(
     shape({
       temperature: string(200).isRequired(),
-      code: string(200).isRequired(),
+      sensorCode: string(200).isRequired(),
       humidity: string(200).isRequired(),
       datetime: string(200).isRequired(),
     })
