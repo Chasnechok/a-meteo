@@ -41,12 +41,7 @@ class SensorAbl {
 
   async delete(awid, dtoIn) {
     // HDS 1., HDS 1.1
-    /* await SubjectManAbl.checkInstance(
-       awid,
-       Errors.Create.SubjectManInstanceDoesNotExist,
-       Errors.Create.SubjectManInstanceNotInProperState
-     );*/
-
+  
     // HDS 2., HDS 2.1.
     let validationResult = this.validator.validate("sensorDeleteDtoInType", dtoIn);
     // HDS 2.2., AS  2.2.1., HDS 2.3., AS  2.3.1.
@@ -74,7 +69,6 @@ class SensorAbl {
     }
 
     // HDS 4.
-    //sensor.uuAppErrorMap = uuAppErrorMap;
     return sensor;
   }
 
@@ -118,11 +112,7 @@ class SensorAbl {
 
   async update(awid, dtoIn) {
     // HDS 1., HDS 1.1
-    /* await SubjectManAbl.checkInstance(
-       awid,
-       Errors.Update.SubjectManInstanceDoesNotExist,
-       Errors.Update.SubjectManInstanceNotInProperState
-     );*/
+    
 
     // HDS 2., HDS 2.1.
     let validationResult = this.validator.validate("sensorUpdateDtoInType", dtoIn);
@@ -153,18 +143,11 @@ class SensorAbl {
     }
 
     // HDS 4.
-    //sensor.uuAppErrorMap = uuAppErrorMap;
     return sensor;
   }
 
   async get(awid, dtoIn) {
     // HDS 1., HDS 1.1
-    /* await SubjectManAbl.checkInstance(
-       awid,
-       Errors.Create.SubjectManInstanceDoesNotExist,
-       Errors.Create.SubjectManInstanceNotInProperState
-     );*/
-
     // HDS 2., HDS 2.1.
     let validationResult = this.validator.validate("sensorGetDtoInType", dtoIn);
     // HDS 2.2., AS  2.2.1., HDS 2.3., AS  2.3.1.
@@ -192,18 +175,11 @@ class SensorAbl {
     }
 
     // HDS 4.
-    //sensor.uuAppErrorMap = uuAppErrorMap;
     return sensor;
   }
 
   async create(awid, dtoIn) {
 
-    // HDS 1., HDS 1.1
-   /* await SubjectManAbl.checkInstance(
-      awid,
-      Errors.Create.SubjectManInstanceDoesNotExist,
-      Errors.Create.SubjectManInstanceNotInProperState
-    );*/
 
     // HDS 2., HDS 2.1.
     let validationResult = this.validator.validate("sensorCreateDtoInType", dtoIn);

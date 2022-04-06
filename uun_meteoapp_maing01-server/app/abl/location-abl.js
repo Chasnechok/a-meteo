@@ -136,7 +136,7 @@ class LocationAbl {
     } catch (e) {
       // AS  3.1.
       if (e instanceof ObjectStoreError) {
-        throw new Errors.Get.LocationDaoGetFailed({ uuAppErrorMap });
+        throw new Errors.Delete.LocationDaoDeleteFailed({ uuAppErrorMap });
       }
       throw e;
     }

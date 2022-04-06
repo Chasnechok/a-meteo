@@ -7,20 +7,6 @@ const SENSOR_ERROR_PREFIX = `${MeteoappMainUseCaseError.ERROR_PREFIX}sensor/`;
 const Create = {
   UC_CODE: `${SENSOR_ERROR_PREFIX}create/`,
 
-  SubjectManInstanceDoesNotExist: class extends MeteoappMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${ Create.UC_CODE }subjectManInstanceDoesNotExist`;
-      this.message = "SubjectManInstance does not exist."; }
-  },
-
-  SubjectManInstanceNotInProperState: class extends MeteoappMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${ Create.UC_CODE }subjectManInstanceNotInProperState`;
-      this.message = "SubjectManInstance is not in proper state (active)."; }
-  },
-
   InvalidDtoIn: class extends MeteoappMainUseCaseError {
     constructor() {
       super(...arguments);
@@ -40,20 +26,6 @@ const Create = {
 
 const Get = {
   UC_CODE: `${SENSOR_ERROR_PREFIX}get/`,
-  
-  SubjectManInstanceDoesNotExist: class extends MeteoappMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${ Get.UC_CODE }subjectManInstanceDoesNotExist`;
-      this.message = "SubjectManInstance does not exist."; }
-  },
-
-  SubjectManInstanceNotInProperState: class extends MeteoappMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${ Get.UC_CODE }subjectManInstanceNotInProperState`;
-      this.message = "SubjectManInstance is not in proper state (active)."; }
-  },
 
   InvalidDtoIn: class extends MeteoappMainUseCaseError {
     constructor() {
@@ -74,20 +46,6 @@ const Get = {
 
 const Update = {
   UC_CODE: `${SENSOR_ERROR_PREFIX}update/`,
-  
-  SubjectManInstanceDoesNotExist: class extends MeteoappMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${ Update.UC_CODE }subjectManInstanceDoesNotExist`;
-      this.message = "SubjectManInstance does not exist."; }
-  },
-
-  SubjectManInstanceNotInProperState: class extends MeteoappMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${ Update.UC_CODE }subjectManInstanceNotInProperState`;
-      this.message = "SubjectManInstance is not in proper state (active)."; }
-  },
 
   InvalidDtoIn: class extends MeteoappMainUseCaseError {
     constructor() {
@@ -108,21 +66,7 @@ const Update = {
 
 const List = {
   UC_CODE: `${SENSOR_ERROR_PREFIX}list/`,
-  
-  SubjectManInstanceDoesNotExist: class extends MeteoappMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${ List.UC_CODE }subjectManInstanceDoesNotExist`;
-      this.message = "SubjectManInstance does not exist."; }
-  },
-
-  SubjectManInstanceNotInProperState: class extends MeteoappMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${ List.UC_CODE }subjectManInstanceNotInProperState`;
-      this.message = "SubjectManInstance is not in proper state (active)."; }
-  },
-
+ 
   InvalidDtoIn: class extends MeteoappMainUseCaseError {
     constructor() {
       super(...arguments);
@@ -142,21 +86,7 @@ const List = {
 
 const Delete = {
   UC_CODE: `${SENSOR_ERROR_PREFIX}delete/`,
-  
-  SubjectManInstanceDoesNotExist: class extends MeteoappMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${ Delete.UC_CODE }subjectManInstanceDoesNotExist`;
-      this.message = "SubjectManInstance does not exist."; }
-  },
-
-  SubjectManInstanceNotInProperState: class extends MeteoappMainUseCaseError {
-    constructor() {
-      super(...arguments);
-      this.code = `${ Delete.UC_CODE }subjectManInstanceNotInProperState`;
-      this.message = "SubjectManInstance is not in proper state (active)."; }
-  },
-
+ 
   InvalidDtoIn: class extends MeteoappMainUseCaseError {
     constructor() {
       super(...arguments);
