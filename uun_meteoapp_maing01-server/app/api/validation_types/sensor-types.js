@@ -1,9 +1,10 @@
 /* eslint-disable */
 const sensorCreateDtoInType = shape({
-  name: string(200).isRequired(),
+  name: string(200),
   code: string(200).isRequired(),
-  locationCode: string(200).isRequired()
-  
+  locationId: string(200),
+  state: string(200)
+
 })
 
 const sensorGetDtoInType = shape({

@@ -21,7 +21,7 @@ const WARNINGS = {
   deleteUnsupportedKeys: {
     code: `${Errors.Delete.UC_CODE}unsupportedKeys`
   },
-  
+
 };
 
 const DEFAULTS = {
@@ -41,7 +41,7 @@ class SensorAbl {
 
   async delete(awid, dtoIn) {
     // HDS 1., HDS 1.1
-  
+
     // HDS 2., HDS 2.1.
     let validationResult = this.validator.validate("sensorDeleteDtoInType", dtoIn);
     // HDS 2.2., AS  2.2.1., HDS 2.3., AS  2.3.1.
@@ -112,7 +112,7 @@ class SensorAbl {
 
   async update(awid, dtoIn) {
     // HDS 1., HDS 1.1
-    
+
 
     // HDS 2., HDS 2.1.
     let validationResult = this.validator.validate("sensorUpdateDtoInType", dtoIn);
@@ -192,6 +192,14 @@ class SensorAbl {
     );
     // HDS 2.4.
     dtoIn.state = "initial";
+
+    if(!dtoIn.name){
+      dtoIn.name ="";
+    }
+    if(!dtoIn.locationId){
+      dtoIn.locationId ="";
+    }
+
     dtoIn.awid = awid;
     // HDS 3.
     let sensor;
