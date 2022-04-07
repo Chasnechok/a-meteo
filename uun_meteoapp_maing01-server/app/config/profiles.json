@@ -21,7 +21,7 @@
       
       "sensor/create": {
         "sysStateList": ["active"],
-        "profileList": ["Owner"]
+        "profileList": ["Public"]
     },
       "sensor/get": {
         "sysStateList": ["active"],

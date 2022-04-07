@@ -2,7 +2,7 @@
 const sensorCreateDtoInType = shape({
   name: string(200),
   code: string(200).isRequired(),
-  locationId: string(200),
+  locationCode: string(200),
   state: string(200)
 
 })

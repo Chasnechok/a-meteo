@@ -191,16 +191,17 @@ class SensorAbl {
       Errors.Create.InvalidDtoIn
     );
     // HDS 2.4.
-    dtoIn.state = "initial";
 
     if(!dtoIn.name){
-      dtoIn.name ="";
+      dtoIn.name = null;
     }
-    if(!dtoIn.locationId){
-      dtoIn.locationId ="";
-    }
-
+    if(!dtoIn.locationCode){
+      dtoIn.locationCode =null;
+    } 
+    dtoIn.state = "initial";
     dtoIn.awid = awid;
+
+
     // HDS 3.
     let sensor;
 
