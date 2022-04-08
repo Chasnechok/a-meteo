@@ -6,11 +6,21 @@
     "en": "",
     "cs": ""
   },
+  "docUri": "",
+  "flsUri": "",
+  "slsUri": "",
+  "imageUri": "",
   "devkit": {
     "development": {
       "appBoxLocationUri": "----- VALUE REQUIRED -----",
-      "appDeploymentUri": null
+      "appDeploymentUri": null,
+      "resourcePoolUri": "----- VALUE REQUIRED -----"
     }
+  },
+  "library": {
+    "namespace": "lib",
+    "sourceUri": "https://cdn.plus4u.net/library-library/%s/library.min.js",
+    "componentList": []
   },
   "uun_meteoapp_maing01-hi": {},
   "uun_meteoapp_maing01-server": {}

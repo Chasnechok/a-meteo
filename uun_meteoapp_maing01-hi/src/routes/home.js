@@ -3,11 +3,11 @@ import { Utils, createVisualComponent, useSession, Lsi } from "uu5g05";
 import Uu5Elements from "uu5g05-elements";
 import Plus4U5Elements from "uu_plus4u5g02-elements";
 import { withRoute } from "uu_plus4u5g02-app";
-
 import Config from "./config/config.js";
 import LSI from "../config/lsi.js";
 import WelcomeRow from "../bricks/welcome-row.js";
 import RouteBar from "../core/route-bar.js";
+import Chart from "../bricks/Chart"
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -77,6 +77,7 @@ let Home = createVisualComponent({
             <Lsi lsi={LSI.auth.serverSide} />
           </Uu5Elements.Text>
         </WelcomeRow>
+        <Chart />
       </div>
     );
     //@@viewOff:render

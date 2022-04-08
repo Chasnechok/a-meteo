@@ -3,7 +3,6 @@ import { createVisualComponent, Utils } from "uu5g05";
 import Uu5Elements from "uu5g05-elements";
 import Plus4U5 from "uu_plus4u5g02";
 import Plus4U5App from "uu_plus4u5g02-app";
-
 import Config from "./config/config.js";
 import Home from "../routes/home.js";
 //@@viewOff:imports
