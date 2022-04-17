@@ -1,92 +1,97 @@
 //@@viewOn:imports
-import { Utils, createVisualComponent, useSession, Lsi } from "uu5g05";
-import Uu5Elements from "uu5g05-elements";
-import Plus4U5Elements from "uu_plus4u5g02-elements";
-import { withRoute } from "uu_plus4u5g02-app";
-import Config from "./config/config.js";
-import LSI from "../config/lsi.js";
-import WelcomeRow from "../bricks/welcome-row.js";
-import RouteBar from "../core/route-bar.js";
-import Chart from "../bricks/Chart"
+import UU5 from 'uu5g04'
+import 'uu5g04-bricks'
+import { createVisualComponent } from 'uu5g04-hooks'
+import Config from './config/config.js'
+//import Lsi from "../config/lsi.js";
+import LocationsFetcher from '../bricks/locations-fetcher'
+import LocationList from '../bricks/LocationList.js'
 //@@viewOff:imports
 
-//@@viewOn:constants
-//@@viewOff:constants
+const STATICS = {
+    //@@viewOn:statics
+    displayName: Config.TAG + 'Home',
+    //@@viewOff:statics
+}
 
-//@@viewOn:css
-const Css = {
-  icon: () =>
-    Config.Css.css({
-      fontSize: 48,
-      lineHeight: "1em",
-    }),
-};
-//@@viewOff:css
+const CLASS_NAMES = {
+    refreshButton: () => Config.Css.css`
+    display: block;
+    margin: 0 auto;
+    span.mdi {
+      transition: .3s;
+    }
+    &:hover > span.mdi {
+      transform: rotate(180deg);
+    }
+  `,
+}
 
-//@@viewOn:helpers
-//@@viewOff:helpers
+export const Home = createVisualComponent({
+    ...STATICS,
 
-let Home = createVisualComponent({
-  //@@viewOn:statics
-  uu5Tag: Config.TAG + "Home",
-  //@@viewOff:statics
+    //@@viewOn:propTypes
+    //@@viewOff:propTypes
 
-  //@@viewOn:propTypes
-  propTypes: {},
-  //@@viewOff:propTypes
+    //@@viewOn:defaultProps
+    //@@viewOff:defaultProps
+    render() {
+        //@@viewOn:private
+        function renderError(errorData, handlerMap) {
+            switch (errorData.operation) {
+                case 'load':
+                case 'loadNext':
+                default:
+                    return (
+                        <>
+                            <UU5.Bricks.Button className={CLASS_NAMES.refreshButton()} onClick={handlerMap.load}>
+                                Refresh <UU5.Bricks.Icon icon="mdi-refresh" />
+                            </UU5.Bricks.Button>
+                            <UU5.Bricks.Error
+                                content="There was an error during loading."
+                                error={errorData.error}
+                                errorData={errorData.data}
+                            />
+                        </>
+                    )
+            }
+        }
+        function renderLoading() {
+            return <UU5.Bricks.Loading />
+        }
+        function renderReady(data) {
+            return <LocationList locations={data} />
+        }
+        //@@viewOff:private
+        //@@viewOn:interface
+        //@@viewOff:interface
 
-  //@@viewOn:defaultProps
-  defaultProps: {},
-  //@@viewOff:defaultProps
+        //@@viewOn:render
+        return (
+            <section className="homeSection">
+                <UU5.Bricks.Container>
+                    <LocationsFetcher>
+                        {({ state, data, errorData, handlerMap }) => {
+                            switch (state) {
+                                case 'pending':
+                                case 'pendingNoData':
+                                    return renderLoading()
+                                case 'error':
+                                case 'errorNoData':
+                                    return renderError(errorData, handlerMap)
+                                case 'itemPending':
+                                case 'ready':
+                                case 'readyNoData':
+                                default:
+                                    return renderReady(data)
+                            }
+                        }}
+                    </LocationsFetcher>
+                </UU5.Bricks.Container>
+            </section>
+        )
+        //@@viewOff:render
+    },
+})
 
-  render(props) {
-    //@@viewOn:private
-    const { identity } = useSession();
-    //@@viewOff:private
-
-    //@@viewOn:interface
-    //@@viewOff:interface
-
-    //@@viewOn:render
-    const attrs = Utils.VisualComponent.getAttrs(props);
-    return (
-      <div {...attrs}>
-        <RouteBar />
-        <WelcomeRow left={<Plus4U5Elements.PersonPhoto size="xl" borderRadius="none" />}>
-          <Uu5Elements.Text category="story" segment="heading" type="h2">
-            <Lsi lsi={LSI.auth.welcome} />
-          </Uu5Elements.Text>
-          {identity && (
-            <Uu5Elements.Text category="story" segment="heading" type="h2">
-              {identity.name}
-            </Uu5Elements.Text>
-          )}
-        </WelcomeRow>
-        <WelcomeRow left={<Uu5Elements.Icon icon="mdi-human-greeting" className={Css.icon()} />}>
-          <Uu5Elements.Text category="story" segment="body" type="common">
-            <Lsi lsi={LSI.auth.intro} />
-          </Uu5Elements.Text>
-        </WelcomeRow>
-        <WelcomeRow left={<Uu5Elements.Icon icon="mdi-monitor" className={Css.icon()} />}>
-          <Uu5Elements.Text category="story" segment="body" type="common">
-            <Lsi lsi={LSI.auth.clientSide} />
-          </Uu5Elements.Text>
-        </WelcomeRow>
-        <WelcomeRow left={<Uu5Elements.Icon icon="mdi-server" className={Css.icon()} />}>
-          <Uu5Elements.Text category="story" segment="body" type="common">
-            <Lsi lsi={LSI.auth.serverSide} />
-          </Uu5Elements.Text>
-        </WelcomeRow>
-        <Chart />
-      </div>
-    );
-    //@@viewOff:render
-  },
-});
-
-Home = withRoute(Home, { authenticated: true });
-
-//@@viewOn:exports
-export { Home };
-export default Home;
-//@@viewOff:exports
+export default Home
