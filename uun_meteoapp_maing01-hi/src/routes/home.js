@@ -7,7 +7,8 @@ import Config from "./config/config.js";
 import LSI from "../config/lsi.js";
 import WelcomeRow from "../bricks/welcome-row.js";
 import RouteBar from "../core/route-bar.js";
-import Chart from "../bricks/Chart"
+import Chart from "../bricks/chart"
+import locationList from "./location-list.js";
 //@@viewOff:imports
 
 //@@viewOn:constants
@@ -78,6 +79,7 @@ let Home = createVisualComponent({
           </Uu5Elements.Text>
         </WelcomeRow>
         <Chart />
+        <locationList />
       </div>
     );
     //@@viewOff:render
