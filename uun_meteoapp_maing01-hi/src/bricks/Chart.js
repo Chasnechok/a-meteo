@@ -1,58 +1,55 @@
 //@@viewOn:imports
-import UU5 from "uu5g04";
-import { createVisualComponent } from "uu5g04-hooks";
-import "uu5chartg01";
-import Config from "../routes/config/config";
+import UU5 from 'uu5g04'
+import { createVisualComponent } from 'uu5g04-hooks'
+import Config from '../routes/config/config'
+import 'uu5chartg01'
+import dayjs from 'dayjs'
+
 //@@viewOff:imports
 
 const Chart = createVisualComponent({
-  //@@viewOn:statics
-  displayName: Config.TAG + "Chart",
-  //@@viewOff:statics
-  
-  render(props) {
-    //@@viewOn:private
-    //@@viewOff:private
+    //@@viewOn:statics
+    displayName: Config.TAG + 'Chart',
+    //@@viewOff:statics
 
-    const propsState = {
-      data: [
-        { label: "Jan", value: 45, value2: 10, value3: 40 },
-        { label: "Feb", value: 10, value2: 5, value3: 20 },
-        { label: "Mar", value: 5, value2: 15, value3: 30 },
-        { label: "Apr", value: 20, value2: 30, value3: 10 },
-        { label: "May", value: 10, value2: 5, value3: 5 },
-        { label: "Jun", value: 10, value2: 20, value3: 20 },
-        { label: "Jul", value: 45, value2: 10, value3: 40 },
-        { label: "Aug", value: 10, value2: 5, value3: 20 },
-        { label: "Sep", value: 5, value2: 15, value3: 30 },
-        { label: "Oct", value: 20, value2: 30, value3: 10 },
-        { label: "Nov", value: 10, value2: 5, value3: 5 },
-        { label: "Dec", value: 10, value2: 20, value3: 20 }
-      ],
-      series: [
-        {
-          valueKey: "value",
-          name: "První graf",
-          colorSchema: "red",
-          chartType: "linear"
-        },
-        {
-          valueKey: "value2",
-          name: "Druhý graf",
-          colorSchema: "blue",
-          chartType: "linear"
-        },
-      ]
-    };
-    //@@viewOn:render
-    return (
-      <UU5.Bricks.Container>
+    render({ data }) {
+        //@@viewOn:private
+        const series = [
+            {
+                valueKey: 'humidity',
+                name: 'Humidity',
+                colorSchema: 'blue',
+                chartType: 'natural',
+            },
+            {
+                valueKey: 'temperature',
+                name: 'Temperature',
+                colorSchema: 'red',
+                chartType: 'natural',
+            },
+        ]
 
-        <UU5.SimpleChart.LineChart data={propsState.data} series={propsState.series} />
-      </UU5.Bricks.Container>
-    )
-    //@@viewOff:render
-  }
-});
+        function parseData(data) {
+            if (!data || !data.length) return
+            console.log(data[0])
+            return data.map(({ data: metric }) => ({
+                label: dayjs(metric.datetime).format('dd HH:mm'),
+                temperature: metric.temperature,
+                humidity: metric.humidity,
+            }))
+        }
+        const metrics = parseData(data)
+        parseData(data)
 
-export default Chart;
+        //@@viewOff:private
+        //@@viewOn:render
+        return metrics?.length ? (
+            <UU5.SimpleChart.LineChart displayLegend series={series} data={metrics} />
+        ) : (
+            <div>No data for the specified period available</div>
+        )
+        //@@viewOff:render
+    },
+})
+
+export default Chart
