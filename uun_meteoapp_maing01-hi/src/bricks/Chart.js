@@ -8,7 +8,7 @@ import Config from "../routes/config/config";
 const Chart = createVisualComponent({
   //@@viewOn:statics
   displayName: Config.TAG + "Chart",
-  //@@viewOff:statics
+  //@@viewOff:statics s
   
   render(props) {
     //@@viewOn:private
