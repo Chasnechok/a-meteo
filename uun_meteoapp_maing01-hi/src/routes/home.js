@@ -68,7 +68,7 @@ export const Home = createVisualComponent({
 
         //@@viewOn:render
         return (
-            <section className="homeSection">
+            <section>
                 <UU5.Bricks.Container>
                     <LocationsFetcher>
                         {({ state, data, errorData, handlerMap }) => {

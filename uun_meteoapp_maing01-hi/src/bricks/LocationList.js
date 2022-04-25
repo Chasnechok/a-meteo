@@ -2,7 +2,7 @@
 import UU5 from 'uu5g04'
 import { createVisualComponent } from 'uu5g04-hooks'
 import Config from '../routes/config/config'
-import SensorList from './SensorList'
+import Sensor from './Sensor'
 import SensorFetcher from './sensors-fetcher'
 //@@viewOff:imports
 
@@ -17,6 +17,22 @@ const CLASS_NAMES = {
       transform: rotate(180deg);
     }
   `,
+    locationList: () => Config.Css.css`
+    background: white;
+    padding: 1em;
+    border-radius: .5em;
+    filter: drop-shadow(0 4px 3px rgb(0 0 0 / 0.07)) drop-shadow(0 2px 2px rgb(0 0 0 / 0.06));
+    `,
+    locationListHeader: () => Config.Css.css`
+    display: flex;
+    padding: 1em;
+    border-bottom: 1px solid #6b7280;
+    font-weight: bold;
+    cursor: default;
+    & > div {
+        flex: 1;
+    }
+    `,
 }
 
 const LocationList = createVisualComponent({
@@ -63,33 +79,20 @@ const LocationList = createVisualComponent({
             return <UU5.Bricks.Loading />
         }
         function renderReady(data) {
-            return (
-                <UU5.Bricks.Accordion
-                    onClickNotCollapseOthers
-                    iconExpanded="mdi-chevron-up"
-                    iconCollapsed="mdi-chevron-down"
-                >
-                    {locations.map(({ data: location }, i) => (
-                        <UU5.Bricks.Panel
-                            key={location.code}
-                            id={location.code}
-                            name={location.name}
-                            expanded={!i}
-                            header={location.name}
-                        >
-                            <SensorList
-                                sensors={data.filter(
-                                    ({ data: sensor }) => sensor.locationCode == location.locationCode
-                                )}
-                            />
-                        </UU5.Bricks.Panel>
-                    ))}
-                </UU5.Bricks.Accordion>
+            return locations.map(({ data: location }, i) =>
+                data
+                    .filter(({ data: sensor }) => sensor.locationCode == location.locationCode)
+                    .map(({ data: sensor }) => <Sensor key={sensor.id} location={location} sensor={sensor} />)
             )
         }
         //@@viewOn:render
         return (
-            <UU5.Bricks.Container noSpacing={true}>
+            <UU5.Bricks.Container className={CLASS_NAMES.locationList()} noSpacing={true}>
+                <UU5.Bricks.Container className={CLASS_NAMES.locationListHeader()} noSpacing={true}>
+                    {['Sensor', 'Current temperature', 'Current humidity'].map((col) => (
+                        <UU5.Bricks.Container noSpacing={true}>{col}</UU5.Bricks.Container>
+                    ))}
+                </UU5.Bricks.Container>
                 <SensorFetcher>
                     {({ state, data, errorData, handlerMap }) => {
                         switch (state) {

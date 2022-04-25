@@ -18,18 +18,44 @@ const CLASS_NAMES = {
       transform: rotate(180deg);
     }
   `,
+    sensorHeader: () => Config.Css.css`
+    display: flex;
+    align-items: center;
+    padding: 1em 1em;
+    transition-property: color, background-color, border-color, text-decoration-color, fill, stroke;
+    transition-timing-function: cubic-bezier(0.4, 0, 0.2, 1);
+    transition-duration: 150ms;
+    text-decoration: none;
+    color: #1f2937 !important; 
+    &:hover {
+        background-color: #f3f4f6;
+    }
+    & p {
+        margin: 0;
+        padding: 0;
+    }
+    & p:first-child {
+        font-size: 0.9em;
+        font-weight: bolder;
+    }
+    & > div {
+        flex: 1;
+    }
+    & span {
+        
+    }
+    
+  `,
 }
 const Sensor = createVisualComponent({
     //@@viewOn:statics
-    displayName: Config.TAG + 'Chart',
+    displayName: Config.TAG + 'Sensor',
     //@@viewOff:statics
 
-    render({ sensor }) {
+    render({ sensor, location }) {
         //@@viewOn:private
-        const modalRef = useRef()
-        const calendarRef = useRef()
 
-        if (!sensor || !sensor.data) {
+        if (!sensor) {
             return null
         }
         function renderError(errorData, handlerMap) {
@@ -58,37 +84,31 @@ const Sensor = createVisualComponent({
             return <UU5.Bricks.Loading />
         }
 
-        function onModalClose(handlerMap) {
-            const ranges = calendarRef.current.getValue()
-            const from = ranges[0]
-            const to = ranges[1]
-            const dtoIn = getDtoIn(sensor.data.code, from, to)
-            handlerMap.load(dtoIn)
-        }
-
         function renderReady(data, handlerMap) {
+            const latestTemperature = data[data.length - 1]?.temperature
+            const latestHumidity = data[data.length - 1]?.humidity
             return (
-                <div>
-                    <UU5.Bricks.Modal ref_={modalRef} onClose={() => onModalClose(handlerMap)} />
-                    <div style={{ display: 'flex', justifyContent: 'center' }}>
-                        <UU5.Bricks.ButtonGroup>
-                            <UU5.Bricks.Button
-                                content="Set date ranges"
-                                onClick={() =>
-                                    modalRef.current.open({
-                                        header: 'Set chart range',
-                                        content: <Calendar calendarRef={calendarRef} />,
-                                    })
-                                }
-                            />
-                            <UU5.Bricks.Button
-                                content="Refresh"
-                                onClick={() => handlerMap.load(getDtoIn(sensor.data.code))}
-                            />
-                        </UU5.Bricks.ButtonGroup>
-                    </div>
-                    <Chart data={data} />
-                </div>
+                <UU5.Bricks.Link
+                    href={`${UU5.Environment.getAppBasePath()}logs?sensorCode=${sensor.code}`}
+                    target="_blank"
+                    className={CLASS_NAMES.sensorHeader()}
+                    noSpacing={true}
+                >
+                    <UU5.Bricks.Container noSpacing={true}>
+                        <p>{sensor.name}</p>
+                        <p>{location.name}</p>
+                    </UU5.Bricks.Container>
+                    <UU5.Bricks.Container noSpacing={true}>
+                        <span>
+                            {latestTemperature
+                                ? `${latestTemperature} °C / ${(latestTemperature * 9) / 5 + 32} °F`
+                                : 'N/A'}
+                        </span>
+                    </UU5.Bricks.Container>
+                    <UU5.Bricks.Container noSpacing={true}>
+                        {latestHumidity ? `${latestHumidity} %` : 'N/A'}
+                    </UU5.Bricks.Container>
+                </UU5.Bricks.Link>
             )
         }
         function getDtoIn(sensorCode, dateFrom, dateTo) {
@@ -111,7 +131,7 @@ const Sensor = createVisualComponent({
         //@@viewOn:render
         return (
             <UU5.Bricks.Container noSpacing={true}>
-                <LogsFetcher dtoIn={getDtoIn(sensor.data.code)}>
+                <LogsFetcher dtoIn={getDtoIn(sensor.code)}>
                     {({ state, data, errorData, handlerMap }) => {
                         switch (state) {
                             case 'pending':
@@ -124,7 +144,10 @@ const Sensor = createVisualComponent({
                             case 'ready':
                             case 'readyNoData':
                             default:
-                                return renderReady(data, handlerMap)
+                                return renderReady(
+                                    data.map((r) => r.data),
+                                    handlerMap
+                                )
                         }
                     }}
                 </LogsFetcher>
