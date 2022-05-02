@@ -90,7 +90,9 @@ const LocationList = createVisualComponent({
             <UU5.Bricks.Container className={CLASS_NAMES.locationList()} noSpacing={true}>
                 <UU5.Bricks.Container className={CLASS_NAMES.locationListHeader()} noSpacing={true}>
                     {['Sensor', 'Current temperature', 'Current humidity'].map((col) => (
-                        <UU5.Bricks.Container noSpacing={true}>{col}</UU5.Bricks.Container>
+                        <UU5.Bricks.Container key={col.replace(/\s/g, '')} noSpacing={true}>
+                            {col}
+                        </UU5.Bricks.Container>
                     ))}
                 </UU5.Bricks.Container>
                 <SensorFetcher>

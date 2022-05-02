@@ -3,9 +3,6 @@ import UU5 from 'uu5g04'
 import { createVisualComponent } from 'uu5g04-hooks'
 import Config from '../routes/config/config'
 import LogsFetcher from './logs-fetcher'
-import Chart from './Chart'
-import { useRef, useState } from 'uu5g05'
-import Calendar from './Calendar'
 //@@viewOff:imports
 const CLASS_NAMES = {
     refreshButton: () => Config.Css.css`
@@ -41,10 +38,6 @@ const CLASS_NAMES = {
     & > div {
         flex: 1;
     }
-    & span {
-        
-    }
-    
   `,
 }
 const Sensor = createVisualComponent({

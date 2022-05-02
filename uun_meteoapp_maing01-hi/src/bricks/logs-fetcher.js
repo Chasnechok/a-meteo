@@ -6,7 +6,7 @@ import Calls from 'calls'
 
 const LogsFethcer = createComponent({
     //@@viewOn:statics
-    displayName: Config.TAG + 'LogsFethcer',
+    displayName: Config.TAG + 'LogsFetcher',
 
     //@@viewOff:statics
 

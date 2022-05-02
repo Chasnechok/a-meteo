@@ -31,15 +31,13 @@ const Chart = createVisualComponent({
 
         function parseData(data) {
             if (!data || !data.length) return
-            console.log(data[0])
             return data.map(({ data: metric }) => ({
-                label: dayjs(metric.datetime).format('dd HH:mm'),
+                label: dayjs(metric.datetime).format('DD MMM HH:mm'),
                 temperature: metric.temperature,
                 humidity: metric.humidity,
             }))
         }
         const metrics = parseData(data)
-        parseData(data)
 
         //@@viewOff:private
         //@@viewOn:render
